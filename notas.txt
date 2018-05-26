@@ -1,0 +1,13 @@
+package.json
+
+-devDependencies:
+Son modulos necesario para ejecutar localmente la aplicacion
+
+"react-scripts"
+    Realiza la transipracion y compilacion del codigo a javascript. Se encarga de lo que haria Webpack y Babel
+
+-dependencies:
+Son modulos necesarios para que funcione la aplicacion en produccion
+
+"firebase"
+sirve para conectarse a una base de datos
