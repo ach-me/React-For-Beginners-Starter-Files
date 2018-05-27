@@ -3,6 +3,7 @@ import Header from './Header';
 import Order from './Order';
 import Inventory from './Inventory';
 import sampleFishes from '../sample-fishes';
+import Fish from './Fish';
 
 class App extends React.Component {
   state = {
@@ -38,6 +39,10 @@ class App extends React.Component {
 
         Los componentes son objetos. "props" es una propiedad del componente, que a su vez es otro objeto, que contiene como propiedades todos los "atributos" que se hayan definido aca  */}
           <Header tagline="Fresh seafood market" />
+          <ul className="fishes">
+            {/* hay que loopear por todo los elementos con javascript */}
+            {Object.keys(this.state.fishes).map(key  => <Fish key={key} details={this.state.fishes[key]}/>)}
+          </ul>
         </div>
         <Order />
         {/* para que un metodo o propiedad exista en otro componente, se lo transmite como "atributo" */}
