@@ -8,7 +8,10 @@ class App extends React.Component {
     return (
       <div className="catch-of-the-day">
         <div className="menu">
-          <Header />          
+        {/* Props son como atributos en html que se usan para que el dato este accesible en el componente.
+        
+        Los componentes son objetos. "props" es una propiedad del componente, que a su vez es otro objeto, que contiene como propiedades todos los "atributos" que se hayan definido aca  */}
+          <Header tagline="Fresh seafood market" />
         </div>
         <Inventory />
         <Order />

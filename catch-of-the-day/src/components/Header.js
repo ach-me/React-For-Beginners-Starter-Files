@@ -13,7 +13,12 @@ class Header extends React.Component {
           Day
         </h1>
         <h3 className="tagline">
-          <span>Fresh Daily</span>
+        {/* cuando se quiere usar una variable dentro de JSX, se pasan entre {}.
+      Los corchetes indican que se va a escribir javascript, necesario para poder acceder a las variables.
+      "this" es esta clase,
+      "props" es la propiedad que contiene todas las propiedades definidas
+      "tagline" es el nombre de una propiedad*/}
+          <span>{this.props.tagline}</span>
         </h3>
       </header>
     )
