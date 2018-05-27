@@ -24,11 +24,21 @@ class App extends React.Component {
       fishes,
     })
   }
-
+  
   loadSampleFishes = () => {
     this.setState({
       fishes: sampleFishes,
     })
+  }
+  
+  addToOrder = (key) => {
+    // tomar una copia de "order"
+    const order = {...this.state.order};
+    // Agregar a la orden o actualizar el numero si ya existe ese fish
+    // si order[key] existe quiere decir que tiene que actualizar su cantidad, sino lo agrega a la lista
+    order[key] = order[key] + 1 || 1;
+    // actualizar la propiedad order
+    this.setState({ order });
   }
 
   render() {
@@ -41,7 +51,16 @@ class App extends React.Component {
           <Header tagline="Fresh seafood market" />
           <ul className="fishes">
             {/* hay que loopear por todo los elementos con javascript */}
-            {Object.keys(this.state.fishes).map(key  => <Fish key={key} details={this.state.fishes[key]}/>)}
+            {
+              Object.keys(this.state.fishes).map(key  => (
+                <Fish 
+                  key={key}
+                  index={key} 
+                  details={this.state.fishes[key]} 
+                  addToOrder={this.addToOrder}
+                />)
+              )
+            }
           </ul>
         </div>
         <Order />
