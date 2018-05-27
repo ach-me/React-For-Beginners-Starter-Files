@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Order from './Order';
 import Inventory from './Inventory';
+import sampleFishes from '../sample-fishes';
 
 class App extends React.Component {
   state = {
@@ -9,6 +10,8 @@ class App extends React.Component {
     order: {},
   };
 
+  // funcion que actualiza los state
+  // debe estar declarada en el mismo componente donde se declaro el state
   addFish = (fish) => {
     // actualizar state
     // tomar una copia del state existente
@@ -20,6 +23,13 @@ class App extends React.Component {
       fishes,
     })
   }
+
+  loadSampleFishes = () => {
+    this.setState({
+      fishes: sampleFishes,
+    })
+  }
+
   render() {
     return (
       <div className="catch-of-the-day">
@@ -31,7 +41,7 @@ class App extends React.Component {
         </div>
         <Order />
         {/* para que un metodo o propiedad exista en otro componente, se lo transmite como "atributo" */}
-        <Inventory addFish={this.addFish}/>
+        <Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes}/>
       </div>
     )
   }
