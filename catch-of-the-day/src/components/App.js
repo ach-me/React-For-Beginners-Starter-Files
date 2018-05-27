@@ -4,17 +4,34 @@ import Order from './Order';
 import Inventory from './Inventory';
 
 class App extends React.Component {
+  state = {
+    fishes: {},
+    order: {},
+  };
+
+  addFish = (fish) => {
+    // actualizar state
+    // tomar una copia del state existente
+    const fishes = {...this.state.fishes};
+    // agregar nuevo fish a fishes
+    fishes[`fish${Date.now()}`] = fish;
+    // actualizar el estado deseado. no es necesario actualizar todas las propiedades de "state"
+    this.setState({
+      fishes,
+    })
+  }
   render() {
     return (
       <div className="catch-of-the-day">
         <div className="menu">
         {/* Props son como atributos en html que se usan para que el dato este accesible en el componente.
-        
+
         Los componentes son objetos. "props" es una propiedad del componente, que a su vez es otro objeto, que contiene como propiedades todos los "atributos" que se hayan definido aca  */}
           <Header tagline="Fresh seafood market" />
         </div>
-        <Inventory />
         <Order />
+        {/* para que un metodo o propiedad exista en otro componente, se lo transmite como "atributo" */}
+        <Inventory addFish={this.addFish}/>
       </div>
     )
   }
