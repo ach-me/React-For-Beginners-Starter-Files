@@ -3,6 +3,16 @@ import { getFunName } from '../helpers';
 
 // cada componente creado sera una clase 
 class StorePicker extends React.Component {
+  // un "ref" permite referenciar un DOM Node
+  myInput = React.createRef();
+
+  goToStore = (e) => {
+    // 1. stop the form for submitting
+    e.preventDefault();
+    // 2. get the text from input
+    console.log(this);
+    // 3. change the page to save it
+  }
   // todas las clases necesitan al menos un metodo
   // ese metodo se llama "render()"
   // se encarga de volvar la estructura html 
@@ -22,10 +32,12 @@ class StorePicker extends React.Component {
 
       <Fragment>
         {/* <p>Fish!</p> */}
-        <form className="store-selector">
+        <form className="store-selector" onSubmit={this.goToStore}>
           { /* comentario dentro de JSX */ }
           <h2>Please Enter a Store</h2>
-          <input type="text" required="required" placeholder="Store Name" defaultValue={getFunName()}/>
+
+        
+          <input type="text" required="required" placeholder="Store Name" defaultValue={getFunName()} ref={this.myInput}/>
           <button type="submit">Visit Store</button>
         </form>      
       </Fragment>
