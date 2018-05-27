@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { getFunName } from '../helpers';
 
 // cada componente creado sera una clase 
 class StorePicker extends React.Component {
@@ -24,7 +25,7 @@ class StorePicker extends React.Component {
         <form className="store-selector">
           { /* comentario dentro de JSX */ }
           <h2>Please Enter a Store</h2>
-          <input type="text" required="required" placeholder="Store Name"/>
+          <input type="text" required="required" placeholder="Store Name" defaultValue={getFunName()}/>
           <button type="submit">Visit Store</button>
         </form>      
       </Fragment>
