@@ -10,10 +10,11 @@ import { render } from 'react-dom';
 // react-dom
 
 import StorePicker from '../src/components/SotrePicker';
+import App from '../src/components/App';
 
 // importar los estilos para que esten disponibles en toda
 // la aplicacion
 import './css/style.css';
 
 // render(expresion JSX (html), elemento dom para montar)
-render(<StorePicker />, document.querySelector('#main'));
+render(<App />, document.querySelector('#main'));
