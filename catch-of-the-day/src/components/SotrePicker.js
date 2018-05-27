@@ -10,8 +10,11 @@ class StorePicker extends React.Component {
     // 1. stop the form for submitting
     e.preventDefault();
     // 2. get the text from input
-    console.log(this);
-    // 3. change the page to save it
+    const storeName = this.myInput.value.value;
+    // 3. change the page whitout re loading it
+    // al ser este un componente hijo de Router, tiene acceso a todas sus propiedades.
+    this.props.history.push(`/store/${storeName}`);
+
   }
   // todas las clases necesitan al menos un metodo
   // ese metodo se llama "render()"
