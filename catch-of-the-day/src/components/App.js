@@ -4,12 +4,31 @@ import Order from './Order';
 import Inventory from './Inventory';
 import sampleFishes from '../sample-fishes';
 import Fish from './Fish';
+import base from '../base';
 
 class App extends React.Component {
   state = {
     fishes: {},
     order: {},
   };
+
+  // life cycle method
+  // para replicar el estado de "fishes" a firebase
+  componentDidMount() {
+    const { params } = this.props.match;
+    // "ref" en firebase es una referencia a una parte de datos de la base
+    // referencia al nombre del store y al objeto con todos los fishes
+    this.ref = base.syncState(`${params.storeId}/fishes`, {
+      context: this,
+      state: 'fishes',
+    })
+  }
+
+  // Para que no se guarden indefinidamente stores nuevos cada vez que el usuario navega a la pantalla principal
+  componentWillUnmount() {
+    // remover el link con la base de datos
+    base.removeBinding(this.ref);
+  }
 
   // funcion que actualiza los state
   // debe estar declarada en el mismo componente donde se declaro el state
