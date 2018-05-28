@@ -16,12 +16,28 @@ class App extends React.Component {
   // para replicar el estado de "fishes" a firebase
   componentDidMount() {
     const { params } = this.props.match;
+    
+    // cuando se carga (monta) el compoonente, se actualiza el state, que a su ejecuta "componentDidUpdate"
+
+    // para que se mantenga los datos de localstorage al actualizar la pagina
+    // hay que reinstanciar localstorage
+    const localStorageRef = localStorage.getItem(params.storeId);
+    if (localStorageRef) {
+      this.setState({ order: JSON.parse(localStorageRef)})
+    }
+
     // "ref" en firebase es una referencia a una parte de datos de la base
     // referencia al nombre del store y al objeto con todos los fishes
     this.ref = base.syncState(`${params.storeId}/fishes`, {
       context: this,
       state: 'fishes',
     })
+  }
+
+  componentDidUpdate() {
+    // cada vez que se actualiza el componente se ejectuta esto
+    // guardar la orden de ese store especifico
+    localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order));
   }
 
   // Para que no se guarden indefinidamente stores nuevos cada vez que el usuario navega a la pantalla principal
