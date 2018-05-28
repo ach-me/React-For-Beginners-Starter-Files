@@ -21,7 +21,7 @@ class Fish extends React.Component {
         <button 
           disabled={!isAvailable} onClick={this.handleClick}>          
           {isAvailable ? 'Add to Order' : 'Sold Out'}
-          </button>
+        </button>
       </li>
     )
   }

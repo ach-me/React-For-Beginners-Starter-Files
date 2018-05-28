@@ -63,7 +63,8 @@ class App extends React.Component {
             }
           </ul>
         </div>
-        <Order />
+        {/* pasar todo el objeto "state" se puede con object spread: "{...this.state}", pero si se le agregan propiedades a "state" se enviaran aunque no sean necesarias*/}
+        <Order fishes={this.state.fishes} order={this.state.order}/>
         {/* para que un metodo o propiedad exista en otro componente, se lo transmite como "atributo" */}
         <Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes}/>
       </div>

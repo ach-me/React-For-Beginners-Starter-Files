@@ -5,7 +5,7 @@ import App from './App';
 import NotFound from './NotFound';
 
 // stateless functional component
-// (cuando el componente solo retorna html)
+// (cuando el componente solo retorna html) no hace falta declararlo como clase
 const Router = () => (
   <BrowserRouter>
     <Switch>
