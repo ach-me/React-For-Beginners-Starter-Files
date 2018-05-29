@@ -11,16 +11,18 @@ class App extends React.Component {
     fishes: {},
     order: {},
   };
-
-  // life cycle method
-  // para replicar el estado de "fishes" a firebase
+  
+  /**
+   * Life cycle method
+   * Replica state.fishes a firebase
+   */
   componentDidMount() {
-    const { params } = this.props.match;
-    
     // cuando se carga (monta) el compoonente, se actualiza el state, que a su ejecuta "componentDidUpdate"
 
+    const { params } = this.props.match;    
+
     // para que se mantenga los datos de localstorage al actualizar la pagina
-    // hay que reinstanciar localstorage
+    // hay que reasignar el "order" en localstorage
     const localStorageRef = localStorage.getItem(params.storeId);
     if (localStorageRef) {
       this.setState({ order: JSON.parse(localStorageRef)})
@@ -36,7 +38,7 @@ class App extends React.Component {
 
   componentDidUpdate() {
     // cada vez que se actualiza el componente se ejectuta esto
-    // guardar la orden de ese store especifico
+    // guardar la orden de ese store especifico en localstorage
     localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order));
   }
 
@@ -46,8 +48,16 @@ class App extends React.Component {
     base.removeBinding(this.ref);
   }
 
-  // funcion que actualiza los state
-  // debe estar declarada en el mismo componente donde se declaro el state
+  
+  /**
+   * funcion que actualiza los state
+   * debe estar declarada en el mismo componente donde se declaro el state
+   * * Informacion importante
+   * ! hellp
+   * ? salsakdjaslkdj
+   * TODO: reasdjalsk
+   * @param fish objeto { name,  price, status, desc, image }
+   */  
   addFish = (fish) => {
     // actualizar state
     // tomar una copia del state existente
@@ -59,13 +69,35 @@ class App extends React.Component {
       fishes,
     })
   }
+
+  /**
+   * 
+   * @param key fish que sera actualizado
+   * @param updatedFish fish con los datos actualizados
+   */ 
+  updateFish = (key, updatedFish) => {
+    // Copiar state actual
+    const fishes = {...this.state.fishes};
+    // actualizar el state.fish que fue modificado
+    fishes[key] = updatedFish;
+    // actualizar el state.fishes
+    this.setState({ fishes });
+  }
   
+  /**
+   * Actualiza el "state.fishes"
+   * @argument void
+   */
   loadSampleFishes = () => {
     this.setState({
       fishes: sampleFishes,
     })
   }
   
+  /**
+   * Actualiza el "state.order"
+   * @param key string, propiedad del objeto fishes que representa cada fish
+   */
   addToOrder = (key) => {
     // tomar una copia de "order"
     const order = {...this.state.order};
@@ -101,7 +133,12 @@ class App extends React.Component {
         {/* pasar todo el objeto "state" se puede con object spread: "{...this.state}", pero si se le agregan propiedades a "state" se enviaran aunque no sean necesarias*/}
         <Order fishes={this.state.fishes} order={this.state.order}/>
         {/* para que un metodo o propiedad exista en otro componente, se lo transmite como "atributo" */}
-        <Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes}/>
+        <Inventory 
+          addFish={this.addFish}
+          updateFish={this.updateFish}
+          loadSampleFishes={this.loadSampleFishes}
+          fishes={this.state.fishes} 
+        />
       </div>
     )
   }
