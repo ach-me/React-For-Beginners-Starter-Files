@@ -42,7 +42,7 @@ class App extends React.Component {
     localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order));
   }
 
-  // Para que no se guarden indefinidamente stores nuevos cada vez que el usuario navega a la pantalla principal
+  // Para que no se guarden indefinidamente stores nuevos en firebase cada vez que el usuario navega a la pantalla principal
   componentWillUnmount() {
     // remover el link con la base de datos
     base.removeBinding(this.ref);
@@ -52,7 +52,7 @@ class App extends React.Component {
    * funcion que actualiza los state
    * debe estar declarada en el mismo componente donde se declaro el state
    * * Informacion importante
-   * ! hellp
+   * ! prueba de extension de comentarios de vscode
    * ? salsakdjaslkdj
    * TODO: reasdjalsk
    * @param fish objeto { name,  price, status, desc, image }
@@ -85,6 +85,21 @@ class App extends React.Component {
     this.setState({ fishes });
   };
 
+  deleteFish = key => {
+    // hacer una copia de state
+    const fishes = { ...this.state.fishes };
+    // si fuera una array
+    // this.state.fishes.filter()
+
+    // actualizar estados
+    // primero hay que setear el fish que se eliminará como "null"
+    // porque firebase necesita que asi sea para poder removerlo de su base
+    fishes[key] = null;
+
+    // actualizar state
+    this.setState({ fishes });
+  };
+
   /**
    * Actualiza el "state.fishes"
    * @argument void
@@ -109,6 +124,14 @@ class App extends React.Component {
     this.setState({ order });
   };
 
+  removeFromOrder = key => {
+    const order = { ...this.state.order };
+    // como en este caso no se esta replicando a firebase, se puede hacer de
+    // la siguiente manera
+    delete order[key];
+    this.setState({ order });
+  };
+
   render() {
     return (
       <div className="catch-of-the-day">
@@ -125,11 +148,12 @@ class App extends React.Component {
           </ul>
         </div>
         {/* pasar todo el objeto "state" se puede con object spread: "{...this.state}", pero si se le agregan propiedades a "state" se enviaran aunque no sean necesarias */}
-        <Order fishes={this.state.fishes} order={this.state.order} />
+        <Order fishes={this.state.fishes} order={this.state.order} removeFromOrder={this.removeFromOrder} />
         {/* para que un metodo o propiedad exista en otro componente, se lo transmite como "atributo" */}
         <Inventory
           addFish={this.addFish}
           updateFish={this.updateFish}
+          deleteFish={this.deleteFish}
           loadSampleFishes={this.loadSampleFishes}
           fishes={this.state.fishes}
         />
