@@ -3,36 +3,47 @@
   enter
   exit
   appear Must set transitionAppear={true} on animation component
+
+  stylus es como sass, pero se basa en identacion y espacios en lugar de ":", ";", "{}" etc
+  si la aplicacion es creada con "create-react-app" no se pueden usar custom css preprocessors en el build de webpack a menos que se haga un "eject"
+  Para ello se agregan manualmente algunos scripts ("styles", "styles:watch", "eject")
+
+  "styles" realiza la compilacion de archivos *.styl a *.css (-o)
+  "styles:watch" vigila cambios realizados en esos archivos (-w) y los recompila
+
+  Para permitir que se ejecuten simultaneamente "npm start" y "npm run styles:watch" con un solo comando (en lugar de abrir dos terminales), se agrega en el script "watch" el paquete "concurrently" que se encarga de ejecutar esas dos instrucciones
+
+  Los modulos agregados { TransitionGroup, CSSTransition } agregan clases a los elementos aplicados. Se pueden utilizar esas clases para animarlos
+  
 */
 
 .order-enter
-  transform: translateX(-120%)
+  transform translateX(-120%)
   transition 0.5s
-  max-height: 0
+  max-height 0  // se usa max-height porque no se puede transisionar height
   padding 0 !important
   &.order-enter-active
     max-height 60px
-    transform: translateX(0)
+    transform translateX(0)
     padding 2rem 0 !important
 
 .order-exit
   transition 0.5s
-  transform: translateX(0)
+  transform translateX(0)
   &.order-exit-active
-    transform: translateX(120%)
-    padding: 0
-
+    transform translateX(120%)
+    padding 0
 
 .count-enter
-  background: red
+  background red
   transition .5s
   transform translateY(100%)
   &.count-enter-active
-    background: yellow
+    background yellow
     transform translateY(0)
 
 .count-exit
-  background: black
+  background black
   transform translateY(0)
   transition .5s
   position absolute
