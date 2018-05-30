@@ -11,7 +11,7 @@ class App extends React.Component {
     fishes: {},
     order: {},
   };
-  
+
   /**
    * Life cycle method
    * Replica state.fishes a firebase
@@ -19,13 +19,13 @@ class App extends React.Component {
   componentDidMount() {
     // cuando se carga (monta) el compoonente, se actualiza el state, que a su ejecuta "componentDidUpdate"
 
-    const { params } = this.props.match;    
+    const { params } = this.props.match;
 
     // para que se mantenga los datos de localstorage al actualizar la pagina
     // hay que reasignar el "order" en localstorage
     const localStorageRef = localStorage.getItem(params.storeId);
     if (localStorageRef) {
-      this.setState({ order: JSON.parse(localStorageRef)})
+      this.setState({ order: JSON.parse(localStorageRef) });
     }
 
     // "ref" en firebase es una referencia a una parte de datos de la base
@@ -33,7 +33,7 @@ class App extends React.Component {
     this.ref = base.syncState(`${params.storeId}/fishes`, {
       context: this,
       state: 'fishes',
-    })
+    });
   }
 
   componentDidUpdate() {
@@ -48,7 +48,6 @@ class App extends React.Component {
     base.removeBinding(this.ref);
   }
 
-  
   /**
    * funcion que actualiza los state
    * debe estar declarada en el mismo componente donde se declaro el state
@@ -57,33 +56,35 @@ class App extends React.Component {
    * ? salsakdjaslkdj
    * TODO: reasdjalsk
    * @param fish objeto { name,  price, status, desc, image }
-   */  
-  addFish = (fish) => {
+   */
+
+  addFish = fish => {
     // actualizar state
     // tomar una copia del state existente
-    const fishes = {...this.state.fishes};
+    const fishes = { ...this.state.fishes };
     // agregar nuevo fish a fishes
     fishes[`fish${Date.now()}`] = fish;
     // actualizar el estado deseado. no es necesario actualizar todas las propiedades de "state"
     this.setState({
       fishes,
-    })
-  }
+    });
+  };
 
   /**
-   * 
+   *
    * @param key fish que sera actualizado
    * @param updatedFish fish con los datos actualizados
-   */ 
+   */
+
   updateFish = (key, updatedFish) => {
     // Copiar state actual
-    const fishes = {...this.state.fishes};
+    const fishes = { ...this.state.fishes };
     // actualizar el state.fish que fue modificado
     fishes[key] = updatedFish;
     // actualizar el state.fishes
     this.setState({ fishes });
-  }
-  
+  };
+
   /**
    * Actualiza el "state.fishes"
    * @argument void
@@ -91,56 +92,49 @@ class App extends React.Component {
   loadSampleFishes = () => {
     this.setState({
       fishes: sampleFishes,
-    })
-  }
-  
+    });
+  };
+
   /**
    * Actualiza el "state.order"
    * @param key string, propiedad del objeto fishes que representa cada fish
    */
-  addToOrder = (key) => {
+  addToOrder = key => {
     // tomar una copia de "order"
-    const order = {...this.state.order};
+    const order = { ...this.state.order };
     // Agregar a la orden o actualizar el numero si ya existe ese fish
     // si order[key] existe quiere decir que tiene que actualizar su cantidad, sino lo agrega a la lista
     order[key] = order[key] + 1 || 1;
     // actualizar la propiedad order
     this.setState({ order });
-  }
+  };
 
   render() {
     return (
       <div className="catch-of-the-day">
         <div className="menu">
-        {/* Props son como atributos en html que se usan para que el dato este accesible en el componente.
+          {/* Props son como atributos en html que se usan para que el dato este accesible en el componente.
 
         Los componentes son objetos. "props" es una propiedad del componente, que a su vez es otro objeto, que contiene como propiedades todos los "atributos" que se hayan definido aca  */}
           <Header tagline="Fresh seafood market" />
           <ul className="fishes">
             {/* hay que loopear por todo los elementos con javascript */}
-            {
-              Object.keys(this.state.fishes).map(key  => (
-                <Fish 
-                  key={key}
-                  index={key} 
-                  details={this.state.fishes[key]} 
-                  addToOrder={this.addToOrder}
-                />)
-              )
-            }
+            {Object.keys(this.state.fishes).map(key => (
+              <Fish key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder} />
+            ))}
           </ul>
         </div>
-        {/* pasar todo el objeto "state" se puede con object spread: "{...this.state}", pero si se le agregan propiedades a "state" se enviaran aunque no sean necesarias*/}
-        <Order fishes={this.state.fishes} order={this.state.order}/>
+        {/* pasar todo el objeto "state" se puede con object spread: "{...this.state}", pero si se le agregan propiedades a "state" se enviaran aunque no sean necesarias */}
+        <Order fishes={this.state.fishes} order={this.state.order} />
         {/* para que un metodo o propiedad exista en otro componente, se lo transmite como "atributo" */}
-        <Inventory 
+        <Inventory
           addFish={this.addFish}
           updateFish={this.updateFish}
           loadSampleFishes={this.loadSampleFishes}
-          fishes={this.state.fishes} 
+          fishes={this.state.fishes}
         />
       </div>
-    )
+    );
   }
 }
 

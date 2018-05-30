@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import { getFunName } from '../helpers';
 
-// cada componente creado sera una clase 
+// cada componente creado sera una clase
 class StorePicker extends React.Component {
   // un "ref" permite referenciar un DOM Node
   myInput = React.createRef();
 
-  goToStore = (e) => {
+  goToStore = e => {
     // 1. stop the form for submitting
     e.preventDefault();
     // 2. get the text from input
@@ -14,13 +14,13 @@ class StorePicker extends React.Component {
     // 3. change the page whitout re loading it
     // al ser este un componente hijo de Router, tiene acceso a todas sus propiedades.
     this.props.history.push(`/store/${storeName}`);
-
-  }
+  };
   // todas las clases necesitan al menos un metodo
   // ese metodo se llama "render()"
-  // se encarga de volvar la estructura html 
+  // se encarga de volvar la estructura html
   render() {
-    return ( // los parentesis son necesarios
+    return (
+      // los parentesis son necesarios
       // cuando se quiere escribir html en varias lineas
 
       // solo se puede retornar un elemento html.
@@ -36,15 +36,20 @@ class StorePicker extends React.Component {
       <Fragment>
         {/* <p>Fish!</p> */}
         <form className="store-selector" onSubmit={this.goToStore}>
-          { /* comentario dentro de JSX */ }
+          {/* comentario dentro de JSX */}
           <h2>Please Enter a Store</h2>
 
-        
-          <input type="text" required="required" placeholder="Store Name" defaultValue={getFunName()} ref={this.myInput}/>
+          <input
+            type="text"
+            required="required"
+            placeholder="Store Name"
+            defaultValue={getFunName()}
+            ref={this.myInput}
+          />
           <button type="submit">Visit Store</button>
-        </form>      
+        </form>
       </Fragment>
-    )
+    );
     // para que esto se muestre, primero hay que montar
     // la aplicacion con el paquete 'react-DOM'
   }
@@ -53,4 +58,3 @@ class StorePicker extends React.Component {
 // para que el componente este disponible en la aplicacion
 // hay que exportarlo como 'export default'
 export default StorePicker;
-

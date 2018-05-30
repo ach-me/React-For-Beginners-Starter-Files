@@ -10,11 +10,11 @@ const Router = () => (
   <BrowserRouter>
     <Switch>
       {/* Aqui van todos los ruteos. Las rutas se van intentando secuencialmente de arriba hacia abajo */}
-      <Route exact path="/" component={StorePicker}/>
-      <Route path="/store/:storeId" component={App}/>
-      <Route component={NotFound}/>
+      <Route exact path="/" component={StorePicker} />
+      <Route path="/store/:storeId" component={App} />
+      <Route component={NotFound} />
     </Switch>
   </BrowserRouter>
-)
+);
 
 export default Router;

@@ -3,24 +3,24 @@ import { formatPrice } from '../helpers';
 
 class Order extends React.Component {
   // cuando dentro de render() empieza a estar muy cargado, mejor separarlo en funciones propias
-  renderOrder = (key) => {
+  renderOrder = key => {
     const fish = this.props.fishes[key];
     const count = this.props.order[key];
-    const isAvailable = fish && fish.status === 'available';    
+    const isAvailable = fish && fish.status === 'available';
     // asegurarse de que fish este cargado antes de continuar
     if (!fish) return null;
 
     // chequear que este disponible
     if (!isAvailable) {
-      return <li key={key}>
-        Sorry, {fish ? fish.name : 'fish' } is no longer available
-      </li>
+      return <li key={key}>Sorry, {fish ? fish.name : 'fish'} is no longer available</li>;
     }
-    return <li key={key}>
+    return (
+      <li key={key}>
         {count} lbs {fish.name}
         {formatPrice(count * fish.price)}
-      </li>;
-  }
+      </li>
+    );
+  };
 
   render() {
     // crear un array con el id de las ordenes
@@ -30,7 +30,7 @@ class Order extends React.Component {
       const count = this.props.order[key];
       const isAvailable = fish && fish.status === 'available';
       if (isAvailable) {
-        return prevTotal + (count * fish.price);
+        return prevTotal + count * fish.price;
       }
       return prevTotal;
     }, 0);
@@ -38,15 +38,13 @@ class Order extends React.Component {
     return (
       <div className="order-wrap">
         <h2>Order</h2>
-          <ul className="order">
-            {orderIds.map(key => this.renderOrder(key))}
-          </ul>
-          <div className="total">
-            Total
-            <strong>{formatPrice(total)}</strong>
-          </div>
+        <ul className="order">{orderIds.map(key => this.renderOrder(key))}</ul>
+        <div className="total">
+          Total
+          <strong>{formatPrice(total)}</strong>
+        </div>
       </div>
-    )
+    );
   }
 }
 
