@@ -15,3 +15,7 @@ sirve para conectarse a una base de datos
 
 State
 Es un objeto dentro de un componente que contiene informacion que el componente o sus hijos pueden necesitar
+
+
+PropTypes
+valida los datos que estan siendo pasados a un componente mediante "props" para asegurarse que se reciben tipos válidos de datos

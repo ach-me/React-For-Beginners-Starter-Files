@@ -1,8 +1,13 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { getFunName } from '../helpers';
 
 // cada componente creado sera una clase
 class StorePicker extends React.Component {
+  static propTypes = {
+    history: PropTypes.object,
+  };
+
   // un "ref" permite referenciar un DOM Node
   myInput = React.createRef();
 

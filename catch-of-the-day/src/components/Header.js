@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // cuando el componente solo retorna una estructura html
+// (stateless functional component)
 // se puede definir de la siguiente manera:
-const Header = ({ tagline }) => (
+const Header = props => (
   // recibe los parametros desectructurando el objeto "props"
   // de la manera habitual, el parametro seria "props"
   // y la referencia a la variable seria "props.tagline"
@@ -21,10 +23,15 @@ const Header = ({ tagline }) => (
   "this" es esta clase,
   "props" es la propiedad que contiene todas las propiedades definidas
   "tagline" es el nombre de una propiedad */}
-      <span>{tagline}</span>
+      <span>{props.tagline}</span>
     </h3>
   </header>
 );
+
+// cuando el componente es stateless, los proptypes deben ser declarados despues
+Header.propTypes = {
+  tagline: PropTypes.string.isRequired, // la variable tagline debe ser de tipo string y debe ser obligatoria
+};
 
 // class Header extends React.Component {
 //   render() {

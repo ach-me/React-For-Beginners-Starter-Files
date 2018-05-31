@@ -1,7 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { formatPrice } from '../helpers';
 
 class Fish extends React.Component {
+  // como este es un componente normal, los proptypes se pueden declara aqui
+  // es "static" porque necesita abarcar todas las instancias de la clase (todos los fish)
+  static propTypes = {
+    details: PropTypes.shape({
+      image: PropTypes.string,
+      name: PropTypes.string,
+      desc: PropTypes.string,
+      status: PropTypes.string,
+      price: PropTypes.number,
+    }),
+    addToOrder: PropTypes.func,
+    index: PropTypes.string,
+  };
+
   handleClick = () => {
     this.props.addToOrder(this.props.index);
   };
