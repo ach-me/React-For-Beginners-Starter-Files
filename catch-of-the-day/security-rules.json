@@ -2,13 +2,15 @@
 {
   "rules": {
     // won't let people delete an existing room
+    // desde el punto de vista de los datos con mayor jerarquia (los nombres de los stores), el usuario solo podra escribir si el store no existe
     ".write": "!data.exists()",
-    ".read": true,
+    ".read": true, // todos pueden leer
+    // $room matchea todos los elementos que sean de segundo nivel (los que vienen luego de los stores)
     "$room": {
+      // vuelve a aplicar otras directivas en el segundo nivel
       // only the store owner can edit the data
-      ".write":
-        "auth != null && (!data.exists() || data.child('owner').val() === auth.uid)",
-      ".read": true
+      ".write": "auth != null && (!data.exists() || data.child('owner').val() === auth.uid)",
+      ".read": true // todo pueden leer
     }
   }
 }
